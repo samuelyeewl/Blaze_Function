@@ -34,7 +34,7 @@ from pathlib import Path
 #   proportion of neighboring points to be used when fitting at one point. 
 
 # Define AFS function
-def AFS (order, a=6, q=0.95, d=0.25):
+def AFS (order, a=6, q=0.95, d=0.25, return_blaze=False):
     # Default value of q and d are 0.95 and 0.25.
     # Change the column names and format of the dataset.
     order.columns=["wv","intens"]
@@ -163,6 +163,8 @@ def AFS (order, a=6, q=0.95, d=0.25):
     y_final= r.predict(loess_fit2, x)
     # Return the blaze-removed spectrum.
     result= order["intens"].values/y_final
+    if return_blaze:
+       return result, y_final
     return result
 
 
